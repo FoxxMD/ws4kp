@@ -7,23 +7,35 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build:css": "sass --style=compressed ./server/styles/scss/main.scss ./server/styles/main.css",
 		"lint": "eslint ./server/scripts/**/*.mjs",
-		"lint:fix": "eslint --fix ./server/scripts/**/*.mjs"
+		"lint:fix": "eslint --fix ./server/scripts/**/*.mjs",
+		"start": "node index.js"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/andyrak/ws4kp.git"
 	},
 	"author": "Matt Walsh",
-	"contributors": [{
-		"name": "Andrew Rakauskas",
-		"email": "andy.rak@gmail.com",
-		"url": "https://arakulo.us"
-	}],
+	"contributors": [
+		{
+			"name": "Andrew Rakauskas",
+			"email": "andy.rak@gmail.com",
+			"url": "https://arakulo.us"
+		}
+	],
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/andyrak/ws4kp/issues"
 	},
 	"homepage": "https://github.com/andyrak/ws4kp#readme",
+	"engine":{
+		"name": "api-make",
+		"version": "1.0.0",
+		"description": "",
+		"main": "index.js",
+		"engines": {
+		  "node": "14.x"
+		}
+	},
 	"devDependencies": {
 		"del": "^6.0.0",
 		"ejs": "^3.1.5",
