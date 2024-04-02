@@ -10,7 +10,7 @@ const queryString = require('querystring');
 module.exports = (req, res) => {
 	// add out-going headers
 	const headers = {};
-	headers['user-agent'] = '(WeatherStar 4000+, ws4000@netbymatt.com)';
+	headers['user-agent'] = '(WeatherStar 4000+, ws4000@arakulo.us)';
 	headers.accept = req.headers.accept;
 
 	// get query paramaters if the exist

@@ -4,7 +4,7 @@ const https = require('https');
 
 module.exports = (url) => new Promise((resolve, reject) => {
 	const headers = {};
-	headers['user-agent'] = '(WeatherStar 4000+ data generator, ws4000@netbymatt.com)';
+	headers['user-agent'] = '(WeatherStar 4000+ data generator, ws4000@arakulo.us)';
 
 	https.get(url, {
 		headers,
