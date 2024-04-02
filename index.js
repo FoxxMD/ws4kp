@@ -24,7 +24,7 @@ const radarPassThru = require('./cors/radar');
 const outlookPassThru = require('./cors/outlook');
 
 app.use(cors({
-	origin: 'https://static.arakulo.us',
+	origin: process.env.CORS_ORIGIN,
 }));
 
 // cors pass-thru to api.weather.gov
