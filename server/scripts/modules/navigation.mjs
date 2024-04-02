@@ -4,6 +4,7 @@ import STATUS from './status.mjs';
 import { wrap } from './utils/calc.mjs';
 import { json } from './utils/fetch.mjs';
 import { getPoint } from './utils/weather.mjs';
+import { howlAudio } from './music.mjs';
 import settings from './settings.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,14 +16,6 @@ let playing = false;
 let volume = false;
 let progress;
 const weatherParameters = {};
-
-// let audioFiles = process.env.AUDIO_FILES;
-let audioFiles = [];
-
-const howlAudio = new Howl({
-	src: audioFiles,
-	autoplay: true,
-});
 
 // auto refresh
 const AUTO_REFRESH_INTERVAL_MS = 500;
@@ -45,7 +38,6 @@ const init = async () => {
 	}
 	document.querySelector(CHK_AUTO_REFRESH_SELECTOR).addEventListener('change', autoRefreshChange);
 	generateCheckboxes();
-	audioFiles = audioFiles.sort((a, b) => 0.5 - Math.random());
 };
 
 const message = (data) => {

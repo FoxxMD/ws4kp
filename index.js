@@ -5,6 +5,14 @@ const express = require('express');
 const app = express();
 const port = process.env.WS4KP_PORT ?? 8080;
 const path = require('path');
+const cors = require('cors');
+
+// load audio files paths from env
+const AUDIO_FILES_STRING = process.env.AUDIO_FILES ?? '';
+const tempAudio = AUDIO_FILES_STRING.split(',');
+// eslint-disable-next-line no-unused-vars
+const AUDIO_FILES = tempAudio.sort((_a, _b) => 0.5 - Math.random());
+console.log(`audio listing: ${AUDIO_FILES}`);
 
 // template engine
 app.set('view engine', 'ejs');
@@ -14,6 +22,10 @@ const fs = require('fs');
 const corsPassThru = require('./cors');
 const radarPassThru = require('./cors/radar');
 const outlookPassThru = require('./cors/outlook');
+
+app.use(cors({
+	origin: 'https://static.arakulo.us',
+}));
 
 // cors pass-thru to api.weather.gov
 app.get('/stations/*', corsPassThru);
@@ -27,6 +39,7 @@ const index = (req, res) => {
 	res.render(path.join(__dirname, 'views/index'), {
 		production: false,
 		version,
+		AUDIO_FILES,
 	});
 };
 
