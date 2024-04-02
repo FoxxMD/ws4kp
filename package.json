@@ -53,8 +53,5 @@
 		"swiped-events": "^1.1.4",
 		"terser-webpack-plugin": "^5.3.6",
 		"webpack-stream": "^7.0.0"
-	},
-	"dependencies": {
-		"cors": "^2.8.5"
 	}
 }

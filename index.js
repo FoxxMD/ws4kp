@@ -5,8 +5,6 @@ const express = require('express');
 const app = express();
 const port = process.env.WS4KP_PORT ?? 8080;
 const path = require('path');
-const cors = require('cors');
-
 // load audio files paths from env
 const AUDIO_FILES_STRING = process.env.AUDIO_FILES ?? '';
 const tempAudio = AUDIO_FILES_STRING.split(',');
@@ -22,10 +20,6 @@ const fs = require('fs');
 const corsPassThru = require('./cors');
 const radarPassThru = require('./cors/radar');
 const outlookPassThru = require('./cors/outlook');
-
-app.use(cors({
-	origin: process.env.CORS_ORIGIN,
-}));
 
 // cors pass-thru to api.weather.gov
 app.get('/stations/*', corsPassThru);
