@@ -28,6 +28,7 @@
   <script type="text/javascript" src="scripts/vendor/auto/nosleep.js"></script>
   <script type="text/javascript" src="scripts/vendor/auto/swiped-events.js"></script>
   <script type="text/javascript" src="scripts/vendor/auto/suncalc.js"></script>
+  <script type="text/javascript" src="scripts/vendor/auto/howler.min.js"></script>
   <script type="module" src="scripts/modules/hazards.mjs"></script>
   <script type="module" src="scripts/modules/currentweatherscroll.mjs"></script>
   <script type="module" src="scripts/modules/currentweather.mjs"></script>
@@ -131,6 +132,7 @@
         <img id="NavigateRefresh" class="navButton" src="images/nav/ic_refresh_white_24dp_2x.png" title="Refresh" />
       </div>
       <div id="divTwcBottomRight">
+        <img id="VolumeControl" class="navButton" src="images/nav/ic_volume_up_white_24dp_2x.png" title="Toggle Music" />
         <img id="ToggleFullScreen" class="navButton" src="images/nav/ic_fullscreen_white_24dp_2x.png" title="Enter Fullscreen" />
       </div>
     </div>
@@ -162,7 +164,6 @@
     Last Update: <span id="spanLastRefresh">(None)</span><br />
     <input id="chkAutoRefresh" name="chkAutoRefresh" type="checkbox" /><label id="lblRefreshCountDown" for="chkAutoRefresh">Auto Refresh: <span id="spanRefreshCountDown">--:--</span></label>
   </div>
-
 </body>
 
 </html>

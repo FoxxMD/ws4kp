@@ -12,8 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const displays = [];
 let playing = false;
+let volume = false;
 let progress;
 const weatherParameters = {};
+
+// let audioFiles = process.env.AUDIO_FILES;
+let audioFiles = [];
+
+const howlAudio = new Howl({
+	src: audioFiles,
+	autoplay: true,
+});
 
 // auto refresh
 const AUTO_REFRESH_INTERVAL_MS = 500;
@@ -36,6 +45,7 @@ const init = async () => {
 	}
 	document.querySelector(CHK_AUTO_REFRESH_SELECTOR).addEventListener('change', autoRefreshChange);
 	generateCheckboxes();
+	audioFiles = audioFiles.sort((a, b) => 0.5 - Math.random());
 };
 
 const message = (data) => {
@@ -235,6 +245,22 @@ const setPlaying = (newValue) => {
 	if (playing && !currentDisplay()) navTo(msg.command.firstFrame);
 };
 
+const setVolume = (newValue) => {
+	volume = newValue;
+	const volumeButton = document.querySelector('#VolumeControl');
+	localStorage.setItem('volume', volume);
+
+	if (volume) {
+		volumeButton.title = 'Mute';
+		volumeButton.src = 'images/nav/ic_volume_off_white_24dp_2x.png';
+		howlAudio.volume = 0;
+	} else {
+		volumeButton.title = 'Unmute';
+		volumeButton.src = 'images/nav/ic_volume_up_white_24dp_2x.png';
+		howlAudio.volume = 1;
+	}
+};
+
 // handle all navigation buttons
 const handleNavButton = (button) => {
 	switch (button) {
@@ -259,6 +285,9 @@ const handleNavButton = (button) => {
 		setPlaying(false);
 		progress.showCanvas();
 		hideAllCanvases();
+		break;
+	case 'volumeToggle':
+		setVolume(!volume);
 		break;
 	default:
 		console.error(`Unknown navButton ${button}`);
