@@ -27,15 +27,6 @@
 		"url": "https://github.com/andyrak/ws4kp/issues"
 	},
 	"homepage": "https://github.com/andyrak/ws4kp#readme",
-	"engine":{
-		"name": "api-make",
-		"version": "1.0.0",
-		"description": "",
-		"main": "index.js",
-		"engines": {
-		  "node": "14.x"
-		}
-	},
 	"devDependencies": {
 		"del": "^6.0.0",
 		"ejs": "^3.1.5",
