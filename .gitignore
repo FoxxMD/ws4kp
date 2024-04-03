@@ -1,6 +1,7 @@
 node_modules
 **/debug.log
 server/scripts/custom.js
+server/audio/test.mp3
 now.json
 .vercel
 .env
