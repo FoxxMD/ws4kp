@@ -7,9 +7,17 @@ const port = process.env.WS4KP_PORT ?? 8080;
 const path = require('path');
 // load audio files paths from env
 const AUDIO_FILES_STRING = process.env.AUDIO_FILES ?? '';
-const tempAudio = AUDIO_FILES_STRING.split(',');
+
+const fisheryates = (arr) => {
+	for (let i = arr.length - 1; i >= 0; i -= 1) {
+		const temp = Math.floor(Math.random() * (i + 1));
+		[arr[temp], arr[i]] = [arr[i], arr[temp]];
+	}
+	return arr;
+};
+
 // eslint-disable-next-line no-unused-vars
-const AUDIO_FILES = tempAudio.sort((_a, _b) => 0.5 - Math.random());
+const AUDIO_FILES = fisheryates(AUDIO_FILES_STRING.split(','));
 console.log(`audio listing: ${AUDIO_FILES}`);
 
 // template engine
@@ -40,6 +48,7 @@ const index = (req, res) => {
 // debugging
 if (process.env?.DIST === '1') {
 	// distribution
+	app.use('/audio', express.static(path.join(__dirname, './server/audio')));
 	app.use('/images', express.static(path.join(__dirname, './server/images')));
 	app.use('/fonts', express.static(path.join(__dirname, './server/fonts')));
 	app.use('/scripts', express.static(path.join(__dirname, './server/scripts')));

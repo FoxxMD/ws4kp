@@ -4,7 +4,6 @@ import STATUS from './status.mjs';
 import { wrap } from './utils/calc.mjs';
 import { json } from './utils/fetch.mjs';
 import { getPoint } from './utils/weather.mjs';
-import { howlAudio } from './music.mjs';
 import settings from './settings.mjs';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -240,16 +239,20 @@ const setPlaying = (newValue) => {
 const setVolume = (newValue) => {
 	volume = newValue;
 	const volumeButton = document.querySelector('#VolumeControl');
+	const audio = document.querySelector('#twcAudio');
 	localStorage.setItem('volume', volume);
 
 	if (volume) {
 		volumeButton.title = 'Mute';
 		volumeButton.src = 'images/nav/ic_volume_off_white_24dp_2x.png';
-		howlAudio.volume = 0;
+		audio.volume = 0;
+		audio.muted = true;
+		audio.play();
 	} else {
 		volumeButton.title = 'Unmute';
 		volumeButton.src = 'images/nav/ic_volume_up_white_24dp_2x.png';
-		howlAudio.volume = 1;
+		audio.volume = 1;
+		audio.muted = false;
 	}
 };
 
