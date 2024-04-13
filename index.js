@@ -5,20 +5,6 @@ const express = require('express');
 const app = express();
 const port = process.env.WS4KP_PORT ?? 8080;
 const path = require('path');
-// load audio files paths from env
-const AUDIO_FILES_STRING = process.env.AUDIO_FILES ?? '';
-
-const fisheryates = (arr) => {
-	for (let i = arr.length - 1; i >= 0; i -= 1) {
-		const temp = Math.floor(Math.random() * (i + 1));
-		[arr[temp], arr[i]] = [arr[i], arr[temp]];
-	}
-	return arr;
-};
-
-// eslint-disable-next-line no-unused-vars
-const AUDIO_FILES = fisheryates(AUDIO_FILES_STRING.split(','));
-console.log(`audio listing: ${AUDIO_FILES}`);
 
 // template engine
 app.set('view engine', 'ejs');
@@ -34,6 +20,12 @@ app.get('/stations/*', corsPassThru);
 app.get('/Conus/*', radarPassThru);
 app.get('/products/*', outlookPassThru);
 
+// route for audio files from env
+const audioFilesString = process.env.AUDIO_FILES ?? '';
+app.get('/audiolisting', (req, res) => {
+	res.send(audioFilesString);
+});
+
 // version
 const { version } = JSON.parse(fs.readFileSync('package.json'));
 
@@ -41,7 +33,6 @@ const index = (req, res) => {
 	res.render(path.join(__dirname, 'views/index'), {
 		production: false,
 		version,
-		AUDIO_FILES,
 	});
 };
 
