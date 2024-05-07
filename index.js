@@ -20,6 +20,12 @@ app.get('/stations/*', corsPassThru);
 app.get('/Conus/*', radarPassThru);
 app.get('/products/*', outlookPassThru);
 
+// route for audio files from env
+const audioFilesString = process.env.AUDIO_FILES ?? '';
+app.get('/audiolisting', (req, res) => {
+	res.send(audioFilesString);
+});
+
 // version
 const { version } = JSON.parse(fs.readFileSync('package.json'));
 
@@ -33,6 +39,7 @@ const index = (req, res) => {
 // debugging
 if (process.env?.DIST === '1') {
 	// distribution
+	app.use('/audio', express.static(path.join(__dirname, './server/audio')));
 	app.use('/images', express.static(path.join(__dirname, './server/images')));
 	app.use('/fonts', express.static(path.join(__dirname, './server/fonts')));
 	app.use('/scripts', express.static(path.join(__dirname, './server/scripts')));

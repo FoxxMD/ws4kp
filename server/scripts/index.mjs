@@ -38,6 +38,8 @@ const init = () => {
 	document.querySelector('#NavigateNext').addEventListener('click', btnNavigateNextClick);
 	document.querySelector('#NavigatePrevious').addEventListener('click', btnNavigatePreviousClick);
 	document.querySelector('#NavigatePlay').addEventListener('click', btnNavigatePlayClick);
+	document.querySelector('#VolumeControl').addEventListener('click', btnNavigateToggleAudio);
+	document.querySelector('#ToggleScanlines').addEventListener('click', btnNavigateToggleScanlines);
 	document.querySelector(TOGGLE_FULL_SCREEN_SELECTOR).addEventListener('click', btnFullScreenClick);
 	const btnGetGps = document.querySelector(BNT_GET_GPS_SELECTOR);
 	btnGetGps.addEventListener('click', btnGetGpsClick);
@@ -348,6 +350,20 @@ const documentKeydown = (e) => {
 
 const btnNavigatePlayClick = () => {
 	postMessage('navButton', 'playToggle');
+	updateFullScreenNavigate();
+
+	return false;
+};
+
+const btnNavigateToggleAudio = () => {
+	postMessage('navButton', 'volumeToggle');
+	updateFullScreenNavigate();
+
+	return false;
+};
+
+const btnNavigateToggleScanlines = () => {
+	postMessage('navButton', 'scanlineToggle');
 	updateFullScreenNavigate();
 
 	return false;

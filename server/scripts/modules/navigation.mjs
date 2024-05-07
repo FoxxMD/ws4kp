@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const displays = [];
 let playing = false;
+let scanlines = false;
+let volume = false;
 let progress;
 const weatherParameters = {};
 
@@ -44,6 +46,8 @@ const message = (data) => {
 	if (data.type === 'navButton') return handleNavButton(data.message);
 	return console.error(`Unknown event ${data.type}`);
 };
+
+const displayContainer = document.querySelector('#container');
 
 const getWeather = async (latLon, haveDataCallback) => {
 	// get initial weather data
@@ -235,6 +239,42 @@ const setPlaying = (newValue) => {
 	if (playing && !currentDisplay()) navTo(msg.command.firstFrame);
 };
 
+const toggleScanlines = (newValue) => {
+	scanlines = newValue;
+	const scanlineButton = document.querySelector('#ToggleScanlines');
+	localStorage.setItem('scanlines', scanlines);
+
+	if (scanlines) {
+		scanlineButton.title = 'Disable Scanlines';
+		scanlineButton.src = 'images/nav/ic_scanlines_on_white_24dp_2x.png';
+		displayContainer.classList.add('scanlines');
+	} else {
+		scanlineButton.title = 'Enable Scanlines';
+		scanlineButton.src = 'images/nav/ic_scanlines_off_white_24dp_2x.png';
+		displayContainer.classList.remove('scanlines');
+	}
+};
+
+const setVolume = (newValue) => {
+	volume = newValue;
+	const volumeButton = document.querySelector('#VolumeControl');
+	const audio = document.querySelector('#twcAudio');
+	localStorage.setItem('volume', volume);
+
+	if (volume) {
+		volumeButton.title = 'Mute';
+		volumeButton.src = 'images/nav/ic_volume_off_white_24dp_2x.png';
+		audio.volume = 0;
+		audio.muted = true;
+		audio.play();
+	} else {
+		volumeButton.title = 'Unmute';
+		volumeButton.src = 'images/nav/ic_volume_up_white_24dp_2x.png';
+		audio.volume = 1;
+		audio.muted = false;
+	}
+};
+
 // handle all navigation buttons
 const handleNavButton = (button) => {
 	switch (button) {
@@ -259,6 +299,12 @@ const handleNavButton = (button) => {
 		setPlaying(false);
 		progress.showCanvas();
 		hideAllCanvases();
+		break;
+	case 'volumeToggle':
+		setVolume(!volume);
+		break;
+	case 'scanlineToggle':
+		toggleScanlines(!scanlines);
 		break;
 	default:
 		console.error(`Unknown navButton ${button}`);
